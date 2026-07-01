@@ -1,0 +1,52 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'content' %}
+
+  
+
+
+
+  <!-- about section -->
+
+  <section class="about_section layout_padding">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="img_container">
+            <div class="img-box b1">
+              <img src="{% static 'images/a-1.jpg' %}" alt="">
+            </div>
+            <div class="img-box b2">
+              <img src="{% static 'images/a-2.jpg' %}" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="detail-box">
+            <h2>
+              🕰️ About Our Shop
+            </h2>
+              <p> Welcome to<span class="fw-bold">
+              The World of Watches</span> — your go-to shop for premium timepieces. From classic analog to modern
+            smartwatches, we offer stylish and durable designs for every taste. With a focus on quality and
+            craftsmanship, we help you find the perfect watch to match your style.
+            Experience elegance and precision with every tick.
+            Because the right watch does more than tell time — it tells your story.</p>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end about section -->
+
+
+
+
+  {% endblock %}
+
+ 
+

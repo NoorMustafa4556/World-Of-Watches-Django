@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block 'content' %}
+
+<div class="d-flex justify-content-end align-items-end m-3">
+    <a href="{% url 'view_cart' %}" class="btn btn-outline-primary me-2" > My Cart</a>
+    <a href="{% url 'user_orders' %}" class="btn btn-outline-primary" > My Orders</a>
+  </div>
+
+<div class="container mt-5">
+  <div class="card shadow-lg p-4">
+    <h2 class="mb-4 text-center text-primary">My Profile</h2>
+
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-group mb-3">
+        <label for="first_name">First Name</label>
+        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}">
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="last_name">Last Name</label>
+        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}">
+      </div>
+
+      <div class="form-group mb-4">
+        <label for="email">Email Address</label>
+        <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary px-4">Update Profile</button>
+      </div>
+    </form>
+
+  
+</div>
+
+{% endblock %}

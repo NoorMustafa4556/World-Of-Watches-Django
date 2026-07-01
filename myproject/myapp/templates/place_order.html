@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block 'content' %}
+<div class="container mt-5">
+  <h2>Place Order for {{ watch.watch_name }} - {{ watch.watch_brand }}</h2>
+  <p><strong>Price:</strong> ${{ watch.watch_price }}</p>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <!-- Quantity Input -->
+    <div class="mb-3">
+      <label for="quantity" class="form-label">Quantity:</label>
+      <input type="number" name="quantity" id="quantity" min="1" value="1" required class="form-control">
+    </div>
+
+    <!-- Address Input -->
+    <div class="mb-3">
+      <label for="address" class="form-label">Delivery Address:</label>
+      <textarea name="address" id="address" rows="3" required class="form-control" placeholder="Enter your full address"></textarea>
+    </div>
+
+    <!-- Payment Method Selection -->
+    <div class="mb-3">
+      <label for="payment_method" class="form-label">Payment Method:</label>
+      <select name="payment_method" id="payment_method" required class="form-select" onchange="toggleOnlineDetails()">
+        <option value="" disabled selected>Select a payment method</option>
+        <option value="Cash on Delivery">Cash on Delivery</option>
+        <option value="Online Payment">Online Payment (Manual)</option>
+      </select>
+    </div>
+
+    <!-- Online Payment Details (Initially Hidden) -->
+    <div id="online_payment_details" style="display: none;" class="card p-3 mb-3 bg-light border-primary">
+      <h5 class="text-primary">Manual Online Payment Details</h5>
+      <p class="mb-3 text-dark">Please select a wallet below to see the account details and transfer the payment.</p>
+      
+      <div class="mb-3">
+        <label for="online_wallet" class="form-label">Select Your Wallet:</label>
+        <select name="online_wallet" id="online_wallet" class="form-select" onchange="updateAccountDetails()">
+          <option value="" disabled selected>Select Wallet</option>
+          {% for method in payment_methods %}
+            <option value="{{ method.id }}" data-title="{{ method.account_title }}" data-number="{{ method.account_number }}">{{ method.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div id="account_info" style="display: none;" class="alert alert-info py-2">
+        <p class="mb-0"><strong>Account Title:</strong> <span id="display_title"></span></p>
+        <p class="mb-0"><strong>Account Number:</strong> <span id="display_number"></span></p>
+      </div>
+
+      <div class="mb-3">
+        <label for="payment_screenshot" class="form-label">Upload Payment Screenshot:</label>
+        <input type="file" name="payment_screenshot" id="payment_screenshot" class="form-control" accept="image/*">
+        <small class="text-danger">Screenshot is mandatory for online payment.</small>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-success m-2">Place Order Now</button>
+  </form>
+</div>
+
+<script>
+  function toggleOnlineDetails() {
+    var paymentMethod = document.getElementById('payment_method').value;
+    var onlineDetails = document.getElementById('online_payment_details');
+    var screenshotInput = document.getElementById('payment_screenshot');
+    var walletSelect = document.getElementById('online_wallet');
+    
+    if (paymentMethod === 'Online Payment') {
+      onlineDetails.style.display = 'block';
+      screenshotInput.required = true;
+      walletSelect.required = true;
+    } else {
+      onlineDetails.style.display = 'none';
+      screenshotInput.required = false;
+      walletSelect.required = false;
+    }
+  }
+
+  function updateAccountDetails() {
+    var select = document.getElementById('online_wallet');
+    var selectedOption = select.options[select.selectedIndex];
+    var infoDiv = document.getElementById('account_info');
+    
+    if (selectedOption.value) {
+      document.getElementById('display_title').innerText = selectedOption.getAttribute('data-title');
+      document.getElementById('display_number').innerText = selectedOption.getAttribute('data-number');
+      infoDiv.style.display = 'block';
+    } else {
+      infoDiv.style.display = 'none';
+    }
+  }
+</script>
+</div>
+{% endblock %}
+                

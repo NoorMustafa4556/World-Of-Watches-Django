@@ -1,0 +1,4 @@
+Django
+Pillow
+django-allauth
+social-auth-app-django

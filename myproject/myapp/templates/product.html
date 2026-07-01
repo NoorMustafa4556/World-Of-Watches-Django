@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block 'content' %}
+
+<section class="product_section">
+  <div class="container">
+    <div class="product_heading">
+      <h2>Top Sale Watches</h2>
+    </div>
+
+    <!-- Search and Filter Bar -->
+    <div class="container mb-5">
+      <form method="GET" action="." class="row g-3 justify-content-center bg-light p-4 rounded shadow-sm">
+        <div class="col-md-5">
+          <div class="input-group">
+            <span class="input-group-text bg-white"><i class="fa fa-search text-muted"></i></span>
+            <input type="text" name="q" class="form-control border-start-0" placeholder="Search by name, description or category..." value="{{ query|default:'' }}">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <select name="category" class="form-select">
+            <option value="">All Categories</option>
+            <option value="Analog" {% if selected_category == 'Analog' %}selected{% endif %}>Analog</option>
+            <option value="Digital" {% if selected_category == 'Digital' %}selected{% endif %}>Digital</option>
+            <option value="Sports" {% if selected_category == 'Sports' %}selected{% endif %}>Sports</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-primary w-100">Filter</button>
+        </div>
+        {% if query or selected_category %}
+        <div class="col-md-2">
+          <a href="." class="btn btn-outline-secondary w-100">Reset</a>
+        </div>
+        {% endif %}
+      </form>
+    </div>
+    <div class="product_container">
+      {% for watch in watches %}
+      <div class="box">
+        <div class="box-content">
+          <div class="img-box">
+            {% if watch.watch_image %}
+            <img src="{{ watch.watch_image.url }}" alt="{{ watch.watch_name }}">
+            {% else %}
+            <img src="{% static 'images/default-watch.png' %}" alt="No Image">
+            {% endif %}
+          </div>
+          <div class="detail-box">
+            <div class="text">
+              <h6>{{ watch.watch_brand }} - {{ watch.watch_name }}</h6>
+                <p class="description">
+      {{ watch.watch_description }}
+    </p>
+              <h5><span>$</span> {{ watch.watch_price }}</h5>
+            </div>
+            <div class="like">
+              <h6></h6>
+              
+            </div>
+          </div>
+        </div>
+        <a href="{% url 'add_to_cart' watch.id %}" class="btn btn-outline-info m-2">Add to Cart</a>
+
+        <a href="{% url 'place_order' watch.id %}" class="btn btn-success m-1"> Order Now</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

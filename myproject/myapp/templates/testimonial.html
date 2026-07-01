@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'content' %}
+
+<!-- client section -->
+<section class="client_section layout_padding">
+  <div class="container">
+    <div class="heading_container heading_center">
+      <h2>Testimonial</h2>
+    </div>
+  </div>
+  <div id="customCarousel2" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+
+      {% for testimonial in testimonials %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 mx-auto">
+              <div class="box">
+                <div class="img-box">
+                  {% if testimonial.image %}
+                  <img src="{{ testimonial.image.url }}" alt="{{ testimonial.name }}">
+                  {% else %}
+                  <img src="{% static 'images/client.jpg' %}" alt="default client">
+                  {% endif %}
+                </div>
+                <div class="detail-box">
+                  <div class="client_info">
+                    <div class="client_name">
+                      <h5>{{ testimonial.name }}</h5>
+                      <h6>Customer</h6>
+                    </div>
+                   
+                  </div>
+                  <p>{{ testimonial.message }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <!-- Carousel Indicators -->
+    <ol class="carousel-indicators">
+      {% for testimonial in testimonials %}
+      <li data-target="#customCarousel2" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+      {% endfor %}
+    </ol>
+  </div>
+
+  <!-- Submit Testimonial Button -->
+  <div class="text-center mt-4">
+    <a href="{% url 'submit_testimonial' %}" class="btn btn-primary">Submit Your Testimonial</a>
+  </div>
+</section>
+<!-- end client section -->
+
+{% endblock %}

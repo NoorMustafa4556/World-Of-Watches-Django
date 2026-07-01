@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block 'content' %}
+<div style="padding: 20px;">
+    <h2>My Orders</h2>
+
+    {% if orders %}
+        <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; text-align: left;">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Watch Name</th>
+                    <th>Quantity</th>
+                    <th>Status</th>
+                    <th>Order Date</th>
+                    <th>Address</th>
+                    <th>Payment Method</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.watch.watch_name }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <td>
+                        {% if order.status == 'DELIVERED' %}
+                            <span style="color: green;">Delivered</span>
+                        {% elif order.status == 'SHIPPED' %}
+                            <span style="color: blue;">Shipped</span>
+                        {% elif order.status == 'CANCELLED' %}
+                            <span style="color: red;">Cancelled</span>
+                        {% else %}
+                            <span>Pending</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ order.order_date|date:"Y-m-d H:i" }}</td>
+                    <td>{{ order.address }}</td>
+                    <td>
+                        {{ order.payment_method }}
+                        {% if order.payment_method == 'Online Payment' %}
+                            <br><small class="text-muted">Wallet: {{ order.online_wallet }}</small>
+                            {% if order.payment_screenshot %}
+                                <br><a href="{{ order.payment_screenshot.url }}" target="_blank" class="btn btn-sm btn-outline-info mt-1">View Proof</a>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You have no orders yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

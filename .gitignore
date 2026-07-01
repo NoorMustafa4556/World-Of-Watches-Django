@@ -1,0 +1,26 @@
+# Virtual environments
+myworld/
+venv/
+env/
+ENV/
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Django local settings or DB
+
+*.sqlite3
+*.sqlite3-journal
+
+# Media uploads
+# media/
+
+# IDE files
+.vscode/
+.idea/
+.project
+.pydevproject
+.settings/
