@@ -6,6 +6,7 @@ Styled with a responsive and sleek design, the application leverages **Django** 
 
 ---
 
+
 ## 🚀 Key Features
 
 - **Dynamic Search & Category Filtering** – Search watches instantly by name, description, or filter them by categories (Analog, Digital, Sports).
