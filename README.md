@@ -18,6 +18,7 @@ Styled with a responsive and sleek design, the application leverages **Django** 
 
 ---
 
+
 ### 🔐 Role-Based Access
 - **Customers** &rarr; Search watches, add items to cart, manage quantities, place orders (Cash on Delivery or upload Online Payment receipts), track order status, and update profile details.
 - **Admins** &rarr; Add and update watches, configure payment wallets, process/ship orders, verify manual transaction screenshots, and manage user accounts.
