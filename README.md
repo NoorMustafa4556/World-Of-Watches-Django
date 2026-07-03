@@ -5,6 +5,7 @@
 Styled with a responsive and sleek design, the application leverages **Django** for secure, role-based backend architecture, offering a high-performance experience for customers and shop administrators alike.
 
 ---
+
 ## 🚀 Key Features
 
 - **Dynamic Search & Category Filtering** – Search watches instantly by name, description, or filter them by categories (Analog, Digital, Sports).
